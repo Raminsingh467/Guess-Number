@@ -3,22 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess Number</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="head"><h1>Guess a Number Between 1 to 100</h1></div>
-        <div class="entry">
-            <input type="text" id="input"/>
-            <button id="btn">Guess</button>
-            <p class="wrng"></p>
-            <p class="guesses">No of guesses:0</p>
-        </div>
+        <h1>Guess the Number!</h1>
+        <p>Enter a number between 1 and 100:</p>
+        <input type="number" id="guessInput" placeholder="Your guess...">
+        <button onclick="checkGuess()">Submit Guess</button>
+        <div class="message" id="message"></div>
     </div>
-    
 
-    <script src="script.js"></script>
+    <script>
+        // Generate a random number between 1 and 100
+        const randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const userGuess = Number(document.getElementById('guessInput').value);
+            const messageElement = document.getElementById('message');
+            attempts++;
+
+            if (userGuess === randomNumber) {
+                messageElement.innerHTML = `Congratulations! You guessed the number <strong>${randomNumber}</strong> in <strong>${attempts}</strong> attempts.`;
+                messageElement.style.color = 'green';
+            } else if (userGuess < randomNumber) {
+                messageElement.textContent = 'Too low! Try again.';
+                messageElement.style.color = 'orange';
+            } else {
+                messageElement.textContent = 'Too high! Try again.';
+                messageElement.style.color = 'orange';
+            }
+        }
+    </script>
 </body>
 </html>
